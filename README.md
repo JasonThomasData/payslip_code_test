@@ -8,10 +8,10 @@ I have made many assumptions to arrive at this solution, so please read the `Pro
 
 ### Documentation
 
-	- [Install](docs/install.md)
-	- [Tests](docs/tests.md)
-	- [Using this program](docs/usage.md)
-	- [Project assumptions](docs/assumptions.md)
+- [Install](docs/install.md)
+- [Tests](docs/tests.md)
+- [Using this program](docs/usage.md)
+- [Project assumptions](docs/assumptions.md)
 
 ### Licence
 
