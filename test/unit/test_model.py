@@ -32,10 +32,10 @@ class TestEmployeeModel(unittest.TestCase):
         session.commit()
 
     def test_retrieve_employee_by_name(self):
-        employees = employee.Employee.get_by_name("John", "Smith")
+        all_employees = employee.Employee.get_by_name("John", "Smith")
 
-        first_name = employees[0].first_name
-        salary = employees[0].annual_salary
+        first_name = all_employees[0].first_name
+        salary = all_employees[0].annual_salary
 
         expected_first_name = 'John'
         expected_salary = 60500
@@ -47,10 +47,10 @@ class TestEmployeeModel(unittest.TestCase):
         '''
         The employee is the first added and will have an id=1.
         '''
-        employees = employee.Employee.get_by_id(1)
+        one_employee = employee.Employee.get_by_id(1)
 
-        first_name = employees[0].first_name
-        salary = employees[0].annual_salary
+        first_name = one_employee.first_name
+        salary = one_employee.annual_salary
 
         expected_first_name = 'John'
         expected_salary = 60500
