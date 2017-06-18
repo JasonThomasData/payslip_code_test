@@ -25,3 +25,8 @@ def get_tax_rates():
     config_data = read_config_file()
     tax_rates = config_data['tax_rates']
     return tax_rates
+
+def get_required_date_formats():
+    config_data = read_config_file()
+    tax_rates = config_data['dates']
+    return tax_rates

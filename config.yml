@@ -18,6 +18,10 @@ payslips_cli:
         optional:
             - id
 
+dates:
+    input: "%d-%m-%Y" # Like 01-01-2000
+    view: "%d %B"     # Like 01 March
+
 # In the below tax rates table, category, can be read as:
 # For an annual salary of $37,001-$80,000, pay $3,572 plus 32.5c for each $1 over $37,000.
 
