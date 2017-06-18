@@ -10,12 +10,13 @@ class Employee(db_connector.Base, db_connector.DBConnector):
     Where every row is the details one employee was paid for an entire month.
     There would be an authoritative Employee database with unique IDs already.
     '''
-    __tablename__ = 'monthly_salary'
+    __tablename__ = 'employee'
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True)
-    first_name = Column(String(100), nullable=False) #required=True
-    last_name = Column(String(100), nullable=False) #required=True
-    annual_salary = Column(Integer) #required=True
-    superannuation_rate = Column(Float) #required=True
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    annual_salary = Column(Integer)
+    superannuation_rate = Column(Float)
 
     @classmethod
     def get_by_name(self, first, last):
