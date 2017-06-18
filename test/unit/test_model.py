@@ -11,8 +11,8 @@ from app.models import employee, db_connector
 
 class TestEmployeeModel(unittest.TestCase):
 
-    test_db_path = 'test/test.db'
-    sqlite_db = 'sqlite:///test/test.db'
+    test_db_path = 'test/data/test.db'
+    sqlite_db = 'sqlite:///test/data/test.db'
 
     def setUp(self):
         os.environ["DATABASE"] = self.sqlite_db
