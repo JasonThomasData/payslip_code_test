@@ -1,4 +1,5 @@
 import sys
+import yaml
 import unittest
 
 # Test the CLI at app/payslips.py

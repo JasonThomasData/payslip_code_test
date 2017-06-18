@@ -1,5 +1,6 @@
 import os
 import sys
+import yaml
 import unittest
 from sqlalchemy import create_engine
 
@@ -9,33 +10,15 @@ sys.path.append('/home/john/programming/python/payslips_test/app')
 from app import seed
 from app.models import employee
 
-class TestSeedParseCsv(unittest.TestCase):
-
-    def test_parse_csv(self):
-
-        os.environ['SEED_DATA'] = 'test/data/seed_data.csv'
-
-        parsed_seed_data = seed.parse_csv()
-
-        expected_seed_data = [{
-            'first_name': 'Jack',
-            'last_name': 'Skinner',
-            'annual_salary': '60500',
-            'superannuation_rate': '9.5'
-        }]
-        
-        self.assertEquals(parsed_seed_data, expected_seed_data)
-
 class TestSeedData(unittest.TestCase):
 
-    test_db_path = 'test/data/test.db'
-    sqlite_db = 'sqlite:///test/data/test.db'
+    with open('config.yml', 'r') as config_file:
+        config_data = yaml.load(config_file)
+        test_db_path = config_data['data_paths']['test']['database_path']
+        sqlite_db = config_data['data_paths']['test']['sql_path']
+        os.environ['SQL_DATABASE'] = sqlite_db
 
     def setUp(self):
-    
-        employee.Employee.__table_args__ = {'extend_existing': True}
-
-        os.environ["DATABASE"] = self.sqlite_db
 
         engine = create_engine(self.sqlite_db)
         employee.Employee.metadata.create_all(engine)
@@ -56,6 +39,23 @@ class TestSeedData(unittest.TestCase):
         ]
 
         seed.seed_database(engine, seed_data)
+    
+    def test_parse_csv(self):
+
+        with open('config.yml', 'r') as config_file:
+            config_data = yaml.load(config_file)
+            seed_path = config_data['data_paths']['test']['seed_path']
+
+        parsed_seed_data = seed.parse_csv(seed_path)
+
+        expected_seed_data = [{
+            'first_name': 'Jack',
+            'last_name': 'Skinner',
+            'annual_salary': '60500',
+            'superannuation_rate': '9.5'
+        }]
+        
+        self.assertEquals(parsed_seed_data, expected_seed_data)
 
     def test_create_db_from_csv_1(self):
         all_employees = employee.Employee.get_by_name("Jack", "Skinner")

@@ -1,21 +1,25 @@
 import sys
 import os
 import unittest
+import yaml
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 sys.path.append('/home/john/programming/python/payslips_test/app')
 from app.models import employee, db_connector
+from app import parse_config_vars
 
 # Test the model at app/model/employee.py
 
 class TestEmployeeModel(unittest.TestCase):
 
-    test_db_path = 'test/data/test.db'
-    sqlite_db = 'sqlite:///test/data/test.db'
+    with open('config.yml', 'r') as config_file:
+        config_data = yaml.load(config_file)
+        test_db_path = config_data['data_paths']['test']['database_path']
+        sqlite_db = config_data['data_paths']['test']['sql_path']
+        os.environ['SQL_DATABASE'] = sqlite_db
 
     def setUp(self):
-        os.environ["DATABASE"] = self.sqlite_db
 
         engine = create_engine(self.sqlite_db)
         employee.Employee.metadata.create_all(engine)
