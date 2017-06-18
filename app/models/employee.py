@@ -6,10 +6,6 @@ import os
 from models import db_connector
 
 class Employee(db_connector.Base, db_connector.DBConnector):
-    '''
-    Where every row is the details one employee was paid for an entire month.
-    There would be an authoritative Employee database with unique IDs already.
-    '''
     __tablename__ = 'employee'
     __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True)
