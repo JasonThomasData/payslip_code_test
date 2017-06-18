@@ -1,4 +1,3 @@
-import os
 import yaml
 
 '''
@@ -28,5 +27,5 @@ def get_tax_rates():
 
 def get_required_date_formats():
     config_data = read_config_file()
-    tax_rates = config_data['dates']
-    return tax_rates
+    date_formats = config_data['dates']
+    return date_formats

@@ -4,11 +4,10 @@
 For initialising the database before the program is run.
 '''
 
-import parse_config_vars
-import os
 import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import parse_config_vars
 from models import employee
 
 def initialise_database(database_path):
@@ -31,11 +30,14 @@ def seed_database(engine, seed_data):
         session.add(new_employee)
     session.commit()
 
-if __name__ == "__main__":
+def main():
     database_path_configs = parse_config_vars.get_database_paths()
     database_path = database_path_configs['production']['sql_path']
-    seed_data_path = database_path_configs['production']['seed']
+    seed_data_path = database_path_configs['production']['seed_path']
 
     engine = initialise_database(database_path)
     seed_data = parse_csv(seed_data_path)
     seed_database(engine, seed_data)
+
+if __name__ == "__main__":
+    main()

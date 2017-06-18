@@ -1,8 +1,4 @@
 from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-import os
 from models import db_connector
 
 class Employee(db_connector.Base, db_connector.DBConnector):
@@ -15,14 +11,14 @@ class Employee(db_connector.Base, db_connector.DBConnector):
     superannuation_rate = Column(Float)
 
     @classmethod
-    def get_by_name(self, first, last):
-        session = self.get_session()
-        records = session.query(self).filter_by(first_name=first,
-             last_name=last).all()
+    def get_by_name(cls, first, last):
+        session = cls.get_session()
+        records = session.query(cls).filter_by(first_name=first,
+                                               last_name=last).all()
         return records
 
     @classmethod
-    def get_by_id(self, id_number):
-        session = self.get_session()
-        record = session.query(self).filter_by(id=id_number).first()
+    def get_by_id(cls, id_number):
+        session = cls.get_session()
+        record = session.query(cls).filter_by(id=id_number).first()
         return record
