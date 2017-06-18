@@ -1,3 +1,50 @@
-data:
-    seed: data/seed_data.csv
-    database: sqlite:///data/employees.db
+data_paths:
+    test:
+        seed_path: test/data/seed_data.csv
+        database_path: test/data/employees.db
+        sql_path: sqlite:///test/data/employees.db
+    production:
+        seed_path: data/seed_data.csv
+        database_path: data/employees.db
+        sql_path: sqlite:///data/employees.db
+
+payslips_cli:
+    arguments:
+        required:
+            - first_name
+            - last_name
+            - start_date
+            - end_date
+        optional:
+            - id
+
+# Each main key is the upper limit to fit into a category.
+# The third category, "80000", can be read as:
+# For an annual salary of $37,001-$80,000, pay $3,572 plus 32.5c for each $1 over $37,000.
+
+tax_rates:
+    18200:
+        base: 0
+        extra:
+            threshold: 0
+            rate: 0
+    37000:
+        base: 0
+        extra:
+            rate: 0.19
+            threshold: 18200
+    80000:
+        base: 3572
+        extra:
+            rate: 0.325
+            threshold: 37000
+    180000:
+        base: 17547
+        extra:
+            rate: 0.37
+            threshold: 80000
+    180000+:
+        base: 54547
+        extra:
+            rate: 0.45
+            threshold: 180000
