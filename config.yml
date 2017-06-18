@@ -18,33 +18,50 @@ payslips_cli:
         optional:
             - id
 
-# Each main key is the upper limit to fit into a category.
-# The third category, "80000", can be read as:
+# In the below tax rates table, category, can be read as:
 # For an annual salary of $37,001-$80,000, pay $3,572 plus 32.5c for each $1 over $37,000.
 
 tax_rates:
-    18200:
-        base: 0
-        extra:
-            threshold: 0
-            rate: 0
-    37000:
-        base: 0
-        extra:
-            rate: 0.19
-            threshold: 18200
-    80000:
-        base: 3572
-        extra:
-            rate: 0.325
-            threshold: 37000
-    180000:
-        base: 17547
-        extra:
-            rate: 0.37
-            threshold: 80000
-    180000+:
-        base: 54547
-        extra:
-            rate: 0.45
-            threshold: 180000
+    # 0-18,200
+    - range:
+          minimum: 0
+          maximum: 18200
+      base: 0
+      extra:
+          threshold: 0
+          rate: 0
+
+    # 18,201-37,000
+    - range:
+          minimum: 18201
+          maximum: 37000
+      base: 0
+      extra:
+          rate: 0.19
+          threshold: 18200
+
+    # 37,000-80,000
+    - range:
+          minimum: 37001
+          maximum: 80000
+      base: 3572
+      extra:
+          rate: 0.325
+          threshold: 37000
+
+    # 80,001-180,000
+    - range:
+          minimum: 80001
+          maximum: 180000
+      base: 17547
+      extra:
+          rate: 0.37
+          threshold: 80000
+
+    # 180,000 +
+    - range:
+          minimum: 180001
+      base: 54547
+      extra:
+          rate: 0.45
+          threshold: 180000
