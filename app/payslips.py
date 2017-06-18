@@ -7,6 +7,7 @@ client.
 
 import parse_config_vars
 import sys
+import os
 #from controllers import make_payslip
 
 def check_required_arguments(required_args, parsed_args):
@@ -21,9 +22,6 @@ def check_required_arguments(required_args, parsed_args):
         raise Exception(err_message)
 
 def parse_arguments(allowed_args, provided_args):
-    required_args = ['first_name', 'last_name', 'start_date', 'end_date']
-    optional_args = ['id']
-    allowed_args = required_args + optional_args
 
     parsed_args = {}
 
@@ -42,11 +40,13 @@ if __name__ == "__main__":
     The 'result' will be an error message or the message formed in a view.
     '''
 
-    required_args = ['first_name', 'last_name', 'start_date', 'end_date']
-    optional_args = ['id']
+    database_path_configs = parse_config_vars.get_database_paths()
+    os.environ['SQL_DATABASE'] = database_path_configs['production']['sql_path']
+
+    required_args, optional_args = parse_config_vars.get_cli_allowed_args() 
     allowed_args = required_args + optional_args
 
-    porivded_args = sys.argv
+    provided_args = sys.argv
     parsed_args = parse_arguments(allowed_args, provided_args)
     check_required_arguments(required_args, parsed_args)
     result = make_payslip.one_employee(parsed_args)

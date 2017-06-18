@@ -13,7 +13,7 @@ class DBConnector():
     @classmethod
     def get_session(self):
 
-        database_path = os.environ["DATABASE"]
+        database_path = os.environ["SQL_DATABASE"]
 
         engine = create_engine(database_path)
         session = sessionmaker(bind=engine)()
