@@ -61,9 +61,13 @@ class TestPayslipsController(unittest.TestCase):
         assert 'Gross income | 6708' in result
 
     def test_controller_2(self):
+        '''
+        This ensures that the name asked for is overridden by employee_id.
+        '''
+
         parsed_args = {
-            'first_name': 'John',
-            'last_name': 'Smith',
+            'first_name': 'Sally',
+            'last_name': 'Watson',
             'start_date': '01-07-2010',
             'id': 1
         }
@@ -71,6 +75,7 @@ class TestPayslipsController(unittest.TestCase):
         result = payslip.one_employee(**parsed_args)
         assert '| 01 July - 31 July' in result
         assert '| John Smith' in result
+        assert 'Gross income | 6708' in result
 
     def test_controller_fail_1(self):
         parsed_args = {

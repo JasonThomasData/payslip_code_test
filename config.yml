@@ -14,7 +14,6 @@ payslips_cli:
             - first_name
             - last_name
             - start_date
-            - end_date
         optional:
             - id
 

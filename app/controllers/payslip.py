@@ -17,6 +17,8 @@ def one_employee(**args):
         last_name = args['last_name']
         employee_record = employee.Employee.get_by_name(first_name, last_name)
 
+    first_name = employee_record.first_name
+    last_name = employee_record.last_name
     annual_salary = employee_record.annual_salary
     super_rate = employee_record.superannuation_rate
 
@@ -27,8 +29,8 @@ def one_employee(**args):
     net_income = payg_calc.get_monthly_net_income(gross_income, income_tax)
     superannuation = payg_calc.get_superannuation(super_rate, gross_income)
 
-    payslip = payslip_view.as_blob(first_name=args['first_name'],
-                                   last_name=args['last_name'],
+    payslip = payslip_view.as_blob(first_name=first_name,
+                                   last_name=last_name,
                                    start_date_obj=start_date_obj,
                                    end_date_obj=end_date_obj,
                                    net_income=net_income,
