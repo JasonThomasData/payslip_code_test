@@ -8,15 +8,15 @@ The tax rates the program uses are also stored in the config.yml file.
 
 First thing, generate the SQL tables:
 
-	./app/seed.py
+	./seed.py
 
 When that is finished, the SQL database will have a table of monthly wages for employees.
 
 A second program will process one employee's payslip:
 
-	./app/payslips --first_name "John" --last_name "Smith" --start_data March-1-2017 --end_date March-31-2017
+	./payslips.py --first_name "John" --last_name "Smith" --start_data March-1-2017 --end_date March-31-2017
 
 If there are more than one employees with that name, the program will list the employees' unique IDs and ask you to pick one.
 
-	./app/payslips --first_name "John" --last_name "Smith" --start_data March-1-2017 --end_date March-31-2017 --id 12
+	./payslips.py --first_name "John" --last_name "Smith" --start_data March-1-2017 --end_date March-31-2017 --id 12
 
