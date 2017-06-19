@@ -6,8 +6,7 @@ from sqlalchemy import create_engine
 
 # Test the CLI at app/seed.py
 
-sys.path.append('/home/john/programming/python/payslips_test/app')
-from app import seed
+import seed
 from app.models import employee
 
 class TestSeedData(unittest.TestCase):

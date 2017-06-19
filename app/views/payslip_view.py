@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-import parse_config_vars
+from app import parse_config_vars
 
 def pay_period_helper(start_date, end_date):
     required_date_formats = parse_config_vars.get_required_date_formats()

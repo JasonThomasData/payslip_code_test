@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float
-from models import db_connector
+from app.models import db_connector
 
 class Employee(db_connector.Base, db_connector.DBConnector):
     __tablename__ = 'employee'

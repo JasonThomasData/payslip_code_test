@@ -7,8 +7,8 @@ client.
 
 import sys
 import os
-import parse_config_vars
-from controllers import payslip
+from app import parse_config_vars
+from app.controllers import payslip
 
 def check_required_arguments(required_args, parsed_args):
     '''

@@ -1,11 +1,11 @@
 import sys
 import yaml
 import unittest
+import importlib
 
 # Test the CLI at app/payslips.py
 
-sys.path.append('/home/john/programming/python/payslips_test/app')
-from app import payslips
+import payslips
 
 class TestPayslipsCLI(unittest.TestCase):
 
