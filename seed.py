@@ -8,7 +8,7 @@ import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app import parse_config_vars
-from models import employee
+from app.models import employee
 
 def initialise_database(database_path):
     engine = create_engine(database_path, echo=True)
