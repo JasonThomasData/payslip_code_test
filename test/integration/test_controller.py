@@ -75,7 +75,7 @@ class TestPayslipsController(unittest.TestCase):
         result = payslip.one_employee(**parsed_args)
         assert '| 01 July - 31 July' in result
         assert '| John Smith' in result
-        assert 'Gross income | 6708' in result
+        assert 'Gross income | 5041' in result
 
     def test_controller_fail_1(self):
         parsed_args = {
