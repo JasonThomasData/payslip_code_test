@@ -5,7 +5,6 @@ import yaml
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-sys.path.append('/home/john/programming/python/payslips_test/app')
 from app.models import employee, db_connector
 from app import parse_config_vars
 
@@ -25,27 +24,54 @@ class TestEmployeeModel(unittest.TestCase):
         employee.Employee.metadata.create_all(engine)
 
         session = sessionmaker(bind=engine)()
-        employee_data = {
-            "first_name": "John",
-            "last_name": "Smith",
-            "annual_salary": 60500,
-            "superannuation_rate": 9.5
-        }
-        new_employee = employee.Employee(**employee_data)
-        session.add(new_employee)
+        all_employees_data = [
+            {
+                "first_name": "John",
+                "last_name": "Smith",
+                "annual_salary": 60500,
+                "superannuation_rate": 9.5
+            },
+            {
+                "first_name": "John",
+                "last_name": "Smith",
+                "annual_salary": 70500,
+                "superannuation_rate": 8.5
+            },
+            {
+                "first_name": "Sally",
+                "last_name": "Watson",
+                "annual_salary": 80500,
+                "superannuation_rate": 7.5
+            }
+        ]
+        for employee_data in all_employees_data:
+            new_employee = employee.Employee(**employee_data)
+            session.add(new_employee)
         session.commit()
 
     def test_retrieve_employee_by_name(self):
-        all_employees = employee.Employee.get_by_name("John", "Smith")
+        all_employees = employee.Employee.get_by_name("Sally", "Watson")
 
-        first_name = all_employees[0].first_name
-        salary = all_employees[0].annual_salary
+        first_name = all_employees.first_name
+        salary = all_employees.annual_salary
 
-        expected_first_name = 'John'
-        expected_salary = 60500
+        expected_first_name = 'Sally'
+        expected_salary = 80500
 
         self.assertEquals(first_name, expected_first_name)
         self.assertEquals(salary, expected_salary)
+
+    def test_retrieve_employee_by_name_fail_1(self):
+        with self.assertRaises(IndexError) as testfail:
+            all_employees = employee.Employee.get_by_name("I Don't", "Exist")
+
+    def test_retrieve_employee_by_name_fail_2(self):
+        '''
+        This fails because there are two in the db, so the user needs to
+        get_by_id()
+        '''
+        with self.assertRaises(IndexError) as testfail:
+            all_employees = employee.Employee.get_by_name("John", "Smith")
 
     def test_retrieve_employee_by_id(self):
         '''
@@ -61,6 +87,10 @@ class TestEmployeeModel(unittest.TestCase):
 
         self.assertEquals(first_name, expected_first_name)
         self.assertEquals(salary, expected_salary)
+
+    def test_retrieve_employee_by_id_fail(self):
+        with self.assertRaises(IndexError) as testfail:
+            all_employees = employee.Employee.get_by_id(20)
 
     def tearDown(self):
         os.remove(self.test_db_path)

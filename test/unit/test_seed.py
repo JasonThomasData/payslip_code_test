@@ -57,10 +57,10 @@ class TestSeedData(unittest.TestCase):
         self.assertEquals(parsed_seed_data, expected_seed_data)
 
     def test_create_db_from_csv_1(self):
-        all_employees = employee.Employee.get_by_name("Jack", "Skinner")
+        employee_record = employee.Employee.get_by_name("Jack", "Skinner")
 
-        first_name = all_employees[0].first_name
-        salary = all_employees[0].annual_salary
+        first_name = employee_record.first_name
+        salary = employee_record.annual_salary
 
         expected_first_name = 'Jack'
         expected_salary = 60500
@@ -69,10 +69,10 @@ class TestSeedData(unittest.TestCase):
         self.assertEquals(salary, expected_salary)
 
     def test_create_db_from_csv_2(self):
-        all_employees = employee.Employee.get_by_name("Sarah", "Warner")
+        employee_record = employee.Employee.get_by_name("Sarah", "Warner")
 
-        first_name = all_employees[0].first_name
-        salary = all_employees[0].annual_salary
+        first_name = employee_record.first_name
+        salary = employee_record.annual_salary
 
         expected_first_name = 'Sarah'
         expected_salary = 70500
