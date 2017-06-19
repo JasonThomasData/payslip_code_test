@@ -4,6 +4,7 @@
 For initialising the database before the program is run.
 '''
 
+import os
 import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -11,7 +12,7 @@ from app import parse_config_vars
 from app.models import employee
 
 def initialise_database(database_path):
-    engine = create_engine(database_path, echo=True)
+    engine = create_engine(database_path)
     employee.Employee.metadata.create_all(engine)
     return engine
 
@@ -32,12 +33,18 @@ def seed_database(engine, seed_data):
 
 def main():
     database_path_configs = parse_config_vars.get_database_paths()
-    database_path = database_path_configs['production']['sql_path']
+    sql_path = database_path_configs['production']['sql_path']
     seed_data_path = database_path_configs['production']['seed_path']
+    database_path = database_path_configs['production']['database_path']
 
-    engine = initialise_database(database_path)
+    os.remove(database_path)
+
+    engine = initialise_database(sql_path)
     seed_data = parse_csv(seed_data_path)
     seed_database(engine, seed_data)
 
-if __name__ == "__main__":
+    message = 'DB created at {}.'.format(sql_path)
+    print(message)
+
+if __name__ == '__main__':
     main()
