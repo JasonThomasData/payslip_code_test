@@ -23,7 +23,7 @@ def get_cli_allowed_args():
 def get_tax_brackets():
     config_data = read_config_file()
     tax_brackets = config_data['tax_brackets']
-    return tax_rates
+    return tax_brackets
 
 def get_required_date_formats():
     config_data = read_config_file()

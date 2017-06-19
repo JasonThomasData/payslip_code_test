@@ -1,6 +1,6 @@
 import unittest
 import mock
-from app.controllers.concerns import payg_calculation, date_parse
+from app.controllers.concerns import payg_calc, date_parse
 
 class TestPAYGCalculateConcern(unittest.TestCase):
 
@@ -67,7 +67,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
         '''
         annual_salary = 65000
 
-        result = payg_calculation.get_monthly_gross_income(annual_salary)
+        result = payg_calc.get_monthly_gross_income(annual_salary)
         expected_result = 5416
 
         self.assertEquals(result, expected_result)
@@ -76,7 +76,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
         gross_income = 4010
         income_tax = 900
 
-        result = payg_calculation.get_monthly_net_income(gross_income, income_tax)
+        result = payg_calc.get_monthly_net_income(gross_income, income_tax)
         expected_result = 3110
 
         self.assertEquals(result, expected_result)
@@ -101,7 +101,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
             }
         }
 
-        result = payg_calculation.get_monthly_income_tax(annual_salary, tax_bracket)
+        result = payg_calc.get_monthly_income_tax(annual_salary, tax_bracket)
         expected_result = 1029
 
         self.assertEquals(result, expected_result)
@@ -126,7 +126,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
             }
         }
 
-        result = payg_calculation.get_monthly_income_tax(annual_salary, tax_bracket)
+        result = payg_calc.get_monthly_income_tax(annual_salary, tax_bracket)
         expected_result = 45
 
         self.assertEquals(result, expected_result)
@@ -143,7 +143,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
 
         annual_salary = 60010.10
 
-        tax_bracket = payg_calculation.get_tax_bracket(annual_salary)
+        tax_bracket = payg_calc.get_tax_bracket(annual_salary)
         bracket_base_tax = tax_bracket['base']
         expected_base_tax = 3572
 
@@ -160,7 +160,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
 
         annual_salary = 290000
 
-        tax_bracket = payg_calculation.get_tax_bracket(annual_salary)
+        tax_bracket = payg_calc.get_tax_bracket(annual_salary)
         bracket_base_tax = tax_bracket['base']
         expected_base_tax = 54547
 
