@@ -1,3 +1,4 @@
+from sqlalchemy.exc import OperationalError
 from app.models import employee
 from app.views import payslip_view
 from app.controllers.concerns import date_parse, payg_calc
@@ -16,6 +17,10 @@ def one_employee(**args):
         first_name = args['first_name']
         last_name = args['last_name']
         employee_record = employee.Employee.get_by_name(first_name, last_name)
+    except OperationalError:
+        err_message = '''There Employees table was not initialised, please run
+        the ./seed.py program'''
+        raise Exception(err_message)
 
     first_name = employee_record.first_name
     last_name = employee_record.last_name
