@@ -25,7 +25,7 @@ dates:
 # In the below tax rates table, category, can be read as:
 # For an annual salary of $37,001-$80,000, pay $3,572 plus 32.5c for each $1 over $37,000.
 
-tax_rates:
+tax_brackets:
     # 0-18,200
     - range:
           minimum: 0

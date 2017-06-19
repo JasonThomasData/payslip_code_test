@@ -20,9 +20,9 @@ def get_cli_allowed_args():
     optional_args = config_data["payslips_cli"]["arguments"]["optional"]
     return required_args, optional_args
 
-def get_tax_rates():
+def get_tax_brackets():
     config_data = read_config_file()
-    tax_rates = config_data['tax_rates']
+    tax_brackets = config_data['tax_brackets']
     return tax_rates
 
 def get_required_date_formats():
