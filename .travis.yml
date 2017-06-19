@@ -10,3 +10,4 @@ install:
   - "pip install -r requirements-dev.txt"
 script:
   - "nosetests test/unit"
+  - "nosetests test/integration"
