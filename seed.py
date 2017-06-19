@@ -7,7 +7,7 @@ For initialising the database before the program is run.
 import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import parse_config_vars
+from app import parse_config_vars
 from models import employee
 
 def initialise_database(database_path):
