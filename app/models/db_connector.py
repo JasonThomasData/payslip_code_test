@@ -11,7 +11,7 @@ class DBConnector():
     '''
 
     @classmethod
-    def get_session(self):
+    def get_session(cls):
 
         database_path = os.environ["SQL_DATABASE"]
 

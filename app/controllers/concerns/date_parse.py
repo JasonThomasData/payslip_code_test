@@ -3,10 +3,7 @@ from dateutil.relativedelta import relativedelta
 from app import parse_config_vars
 
 def get_pay_period_last_day(start_date_obj):
-    end_date_obj = (start_date_obj +
-                    relativedelta(months=1) -
-                    relativedelta(days=1) )
-
+    end_date_obj = start_date_obj + relativedelta(months=1) - relativedelta(days=1)
     return end_date_obj
 
 def get_pay_period(start_date):

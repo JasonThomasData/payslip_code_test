@@ -20,10 +20,10 @@ def get_tax_bracket(annual_salary):
         try:
             maximum = tax_bracket['range']['maximum']
         except KeyError:
-            if minimum < annual_salary:
+            if minimum < rounded_annual_salary:
                 return tax_bracket
 
-        if minimum < annual_salary <= maximum:
+        if minimum < rounded_annual_salary <= maximum:
             return tax_bracket
 
 def get_monthly_income_tax(annual_salary, tax_bracket):
