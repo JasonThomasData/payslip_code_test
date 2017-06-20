@@ -5,7 +5,8 @@ from app.controllers.concerns import date_parse, payg_calc
 
 def one_employee(**args):
     '''
-    For a single employee, process their data and generate one payslip.
+    For a single employee, process their data and generate one payslip. Id is
+    favoured over name for retrieving an employee record.
     '''
     start_date = args['start_date']
     start_date_obj, end_date_obj = date_parse.get_pay_period(start_date)
@@ -25,12 +26,14 @@ def one_employee(**args):
     first_name = employee_record.first_name
     last_name = employee_record.last_name
     annual_salary = employee_record.annual_salary
+    rounded_annual_salary = round(annual_salary)
     super_rate = employee_record.superannuation_rate
 
-    tax_bracket = payg_calc.get_tax_bracket(annual_salary)
+    tax_bracket = payg_calc.get_tax_bracket(rounded_annual_salary)
 
     gross_income = payg_calc.get_monthly_gross_income(annual_salary)
-    income_tax = payg_calc.get_monthly_income_tax(annual_salary, tax_bracket)
+    income_tax = payg_calc.get_monthly_income_tax(rounded_annual_salary,
+                                                  tax_bracket)
     net_income = payg_calc.get_monthly_net_income(gross_income, income_tax)
     superannuation = payg_calc.get_superannuation(super_rate, gross_income)
 
