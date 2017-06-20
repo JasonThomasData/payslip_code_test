@@ -12,14 +12,13 @@ def pay_period_helper(start_date_obj, end_date_obj):
     return pay_period
 
 def kwargs_edit_helper(kwargs_to_edit, pay_period):
+    kwargs_to_edit.pop('start_date_obj')
+    kwargs_to_edit.pop('end_date_obj')
+    kwargs_to_edit['pay_period'] = pay_period
 
     first_name = kwargs_to_edit['first_name']
     last_name = kwargs_to_edit['last_name']
     formatted_name = '{} {}'.format(first_name, last_name)
-
-    kwargs_to_edit.pop('start_date_obj')
-    kwargs_to_edit.pop('end_date_obj')
-    kwargs_to_edit['pay_period'] = pay_period
 
     kwargs_to_edit.pop('first_name')
     kwargs_to_edit.pop('last_name')
