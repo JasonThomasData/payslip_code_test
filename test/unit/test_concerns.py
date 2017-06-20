@@ -63,12 +63,12 @@ class TestPAYGCalculateConcern(unittest.TestCase):
 
     def test_get_monthly_gross_income(self):
         '''
-        65,000/12 = 5416.666666667. Make sure this rounds down.
+        65,000/12 = 5416.666666667. Rounded = 5417.
         '''
         annual_salary = 65000
 
         result = payg_calc.get_monthly_gross_income(annual_salary)
-        expected_result = 5416
+        expected_result = 5417
 
         self.assertEquals(result, expected_result)
 
@@ -110,7 +110,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
         '''
         A person's tax rate, for an annual salary of 64000, is equal to:
         (0 + (.19 * (21000 - 18201)) / 12) = 44.3175
-        Rounded up = 45
+        Rounded = 44
         '''
 
         annual_salary = 21000
@@ -127,7 +127,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
         }
 
         result = payg_calc.get_monthly_income_tax(annual_salary, tax_bracket)
-        expected_result = 45
+        expected_result = 44
 
         self.assertEquals(result, expected_result)
 
