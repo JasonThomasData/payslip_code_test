@@ -6,7 +6,11 @@ The program uses a CSV file to generate the required SQL table. The paths for th
 
 The tax rates the program uses are also stored in the config.yml file.
 
-First thing, generate the SQL tables:
+First thing, ensure the virtualenv is running:
+
+    sourve venv/bin/activate
+
+Generate the SQL tables:
 
 	./seed.py
 
@@ -19,3 +23,7 @@ A second program will process one employee's payslip:
 If there are more than one employees with that name, the program will list the employees' unique IDs and ask you to pick one.
 
 	./payslips.py --first_name John --last_name Smith --start_date 01-03-2017 --id 4
+
+When finished, deactivate the virtualenv:
+
+    deactivate
