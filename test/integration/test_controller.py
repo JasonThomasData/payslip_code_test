@@ -25,6 +25,18 @@ class TestPayslipsController(unittest.TestCase):
         session = sessionmaker(bind=engine)()
         all_employees_data = [
             {
+                "first_name": "David",
+                "last_name": "Rudd",
+                "annual_salary": 60050,
+                "superannuation_rate": 9
+            },
+            {
+                "first_name": "Ryan",
+                "last_name": "Chen",
+                "annual_salary": 120000,
+                "superannuation_rate": 10
+            },
+            {
                 "first_name": "John",
                 "last_name": "Smith",
                 "annual_salary": 60500,
@@ -50,17 +62,35 @@ class TestPayslipsController(unittest.TestCase):
 
     def test_controller_1(self):
         parsed_args = {
-            'first_name': 'Sally',
-            'last_name': 'Watson',
+            'first_name': 'David',
+            'last_name': 'Rudd',
             'start_date': '01-01-2010'
         }
 
         result = payslip.one_employee(**parsed_args)
-        assert '| 01 January - 31 January' in result
-        assert '| Sally Watson' in result
-        assert 'Gross income | 6708' in result
+        assert 'Name         | David Rudd' in result
+        assert 'Pay period   | 01 January - 31 January' in result
+        assert 'Gross income | 5004' in result
+        assert 'Income tax   | 922' in result
+        assert 'Net income   | 4082' in result
+        assert 'Super        | 450' in result
 
     def test_controller_2(self):
+        parsed_args = {
+            'first_name': 'Ryan',
+            'last_name': 'Chen',
+            'start_date': '01-10-2012'
+        }
+
+        result = payslip.one_employee(**parsed_args)
+        assert 'Name         | Ryan Chen' in result
+        assert 'Pay period   | 01 October - 31 October' in result
+        assert 'Gross income | 10000' in result
+        assert 'Income tax   | 2696' in result
+        assert 'Net income   | 7304' in result
+        assert 'Super        | 1000' in result
+
+    def test_controller_3(self):
         '''
         This ensures that the name asked for is overridden by employee_id.
         '''
@@ -69,13 +99,16 @@ class TestPayslipsController(unittest.TestCase):
             'first_name': 'Sally',
             'last_name': 'Watson',
             'start_date': '01-07-2010',
-            'id': 1
+            'id': 3
         }
 
         result = payslip.one_employee(**parsed_args)
-        assert '| 01 July - 31 July' in result
-        assert '| John Smith' in result
-        assert 'Gross income | 5041' in result
+        assert 'Name         | John Smith' in result
+        assert 'Pay period   | 01 July - 31 July' in result
+        assert 'Gross income | 5042' in result
+        assert 'Income tax   | 934' in result
+        assert 'Net income   | 4108' in result
+        assert 'Super        | 479' in result
 
     def test_controller_fail_1(self):
         parsed_args = {
