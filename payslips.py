@@ -37,9 +37,6 @@ def parse_arguments(allowed_args, provided_args):
     return parsed_args
 
 def main():
-    '''
-    The 'result' will be an error message or the message formed in a view.
-    '''
     database_path_configs = parse_config_vars.get_database_paths()
     os.environ['SQL_DATABASE'] = database_path_configs['production']['sql_path']
 

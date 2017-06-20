@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
 '''
-For initialising the database before the program is run.
+For initialising the database before the program is run. Check the data first
+at data/seed_data.csv
 '''
 
 import os
 import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from app import parse_config_vars
 from app.models import employee
 
@@ -43,7 +45,7 @@ def main():
     seed_data = parse_csv(seed_data_path)
     seed_database(engine, seed_data)
 
-    message = 'DB created at {}.'.format(sql_path)
+    message = 'DB created at {}.'.format(database_path)
     print(message)
 
 if __name__ == '__main__':
