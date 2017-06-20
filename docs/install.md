@@ -1,6 +1,10 @@
 ### Install
 
-To install, do:
+To install `virtualenv`on a Debian, Ubuntu or Mint machine, do:
+
+	sudo apt-get install virtualenv
+
+Then:
 
 	virtualenv venv -p python3
 	source venv/bin/activate
