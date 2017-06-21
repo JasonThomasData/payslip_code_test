@@ -8,7 +8,7 @@ def get_monthly_gross_income(annual_salary):
 def get_tax_bracket(rounded_annual_salary):
     '''
     The only tax bracket that does not have a maximum amount is the largest,
-    which was 180000+ , effective 2012. All brackets must have a minimum.
+    which was 180001+ , effective 2012. All brackets must have a minimum.
     '''
     all_tax_brackets = parse_config_vars.get_tax_brackets()
 
@@ -18,10 +18,10 @@ def get_tax_bracket(rounded_annual_salary):
         try:
             maximum = tax_bracket['range']['maximum']
         except KeyError:
-            if minimum < rounded_annual_salary:
+            if minimum <= rounded_annual_salary:
                 return tax_bracket
 
-        if minimum < rounded_annual_salary <= maximum:
+        if minimum <= rounded_annual_salary <= maximum:
             return tax_bracket
 
 def get_monthly_income_tax(rounded_annual_salary, tax_bracket):

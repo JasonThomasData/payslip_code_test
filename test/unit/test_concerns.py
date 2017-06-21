@@ -135,7 +135,7 @@ class TestPAYGCalculateConcern(unittest.TestCase):
     def test_get_tax_bracket_1(self, mock_get_tax_brackets):
         '''
         A person with an annual salary of 60010.10 has a rounded down annual
-        salary of 60010.10. That person falls in the 37001-80000 tax
+        salary of 60010. That person falls in the 37001-80000 tax
         bracket
         '''
 
@@ -152,8 +152,8 @@ class TestPAYGCalculateConcern(unittest.TestCase):
     @mock.patch('app.parse_config_vars.get_tax_brackets')
     def test_get_tax_bracket_2(self, mock_get_tax_brackets):
         '''
-        A person with an annual salary of 60010.10 has a rounded down annual
-        salary of 290000. That person falls in the 180000+ tax bracket
+        A person has an annual salary of $290,000. That person falls in the
+        180,000+ tax bracket.
         '''
 
         mock_get_tax_brackets.return_value = self.mock_tax_rates 
@@ -166,6 +166,39 @@ class TestPAYGCalculateConcern(unittest.TestCase):
 
         self.assertEquals(bracket_base_tax, expected_base_tax)
 
+    @mock.patch('app.parse_config_vars.get_tax_brackets')
+    def test_get_tax_bracket_3(self, mock_get_tax_brackets):
+        '''
+        A person with an annual salary of $80,000 will just fall into the
+        37001-80000 bracket.
+        '''
+
+        mock_get_tax_brackets.return_value = self.mock_tax_rates
+
+        annual_salary = 80000
+
+        tax_bracket = payg_calc.get_tax_bracket(annual_salary)
+        bracket_base_tax = tax_bracket['base']
+        expected_base_tax = 3572
+
+        self.assertEquals(bracket_base_tax, expected_base_tax)
+
+    @mock.patch('app.parse_config_vars.get_tax_brackets')
+    def test_get_tax_bracket_4(self, mock_get_tax_brackets):
+        '''
+        A person with an annual salary of $80,001 will just fall into the
+        80001-180000 bracket.
+        '''
+
+        mock_get_tax_brackets.return_value = self.mock_tax_rates
+
+        annual_salary = 80001
+
+        tax_bracket = payg_calc.get_tax_bracket(annual_salary)
+        bracket_base_tax = tax_bracket['base']
+        expected_base_tax = 17547
+
+        self.assertEquals(bracket_base_tax, expected_base_tax)
 
 class TestDateParse(unittest.TestCase):
 
